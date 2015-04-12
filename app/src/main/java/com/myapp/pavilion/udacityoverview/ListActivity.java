@@ -1,23 +1,13 @@
 package com.myapp.pavilion.udacityoverview;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 
 public class ListActivity extends ActionBarActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +15,7 @@ public class ListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new CourseFragment())
                     .commit();
         }
     }
@@ -56,9 +46,9 @@ public class ListActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+ /*   public static class CourseFragment extends Fragment {
 
-        public PlaceholderFragment() {
+        public CourseFragment() {
             setHasOptionsMenu(true);
         }
 
@@ -140,5 +130,5 @@ public static final String KEY_COURSE="key";
             return super.onOptionsItemSelected(item);
         }
 
-    }
+    }*/
 }

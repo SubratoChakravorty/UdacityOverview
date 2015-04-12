@@ -55,43 +55,5 @@ public class DetailActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class DetailFragment extends Fragment {
-        TextView tv;
 
-        public DetailFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-            tv=(TextView)rootView.findViewById(R.id.tv);
-            Intent i=getActivity().getIntent();
-           Uri uri=i.getData();
-            Toast.makeText(getActivity(),uri.toString(),Toast.LENGTH_SHORT).show();
-            Cursor cur = getActivity().getContentResolver().query(uri, null, null, null, null);
-            Log.e("cursor count",cur.getCount()+"");
-            Toast.makeText(getActivity(),cur.getCount()+"",Toast.LENGTH_SHORT);
-
-
-
-
-        int id_title = cur.getColumnIndex(UdacityContract.CourseEntry.COLUMN_TITLE);
-       Log.e("id_title",id_title+"");
-            Log.e("column_count",cur.getColumnCount()+"");
-           // try {
-cur.moveToFirst();
-                String highAndLow = cur.getString(id_title);
-
-                Log.e("title", highAndLow);
-            tv.setText(highAndLow);
-           // }
-           /* catch(Exception e)
-            {
-                e.printStackTrace();
-            }*/
-
-            return rootView;
-        }
-    }
 }
