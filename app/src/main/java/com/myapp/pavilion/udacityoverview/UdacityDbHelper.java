@@ -22,17 +22,16 @@ public class UdacityDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        // Create a table to hold locations.  A location consists of the string supplied in the
-        // location setting, the city name, and the latitude and longitude
 
 
+//Table name
 
         final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
-                // Why AutoIncrement here, and not above?
-                // Unique keys will be auto-generated in either case.  But for weather
-                // forecasting, it's reasonable to assume the user will want information
-                // for a certain date and all dates *following*, so the forecast data
+                
+
                 // should be sorted accordingly.
+              //column name in the table
+
                 CourseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 
                 // the ID of the location entry associated with this weather data
@@ -44,17 +43,14 @@ public class UdacityDbHelper extends SQLiteOpenHelper {
                 CourseEntry.COLUMN_SHORT_SUMMARY + " TEXT NOT NULL, " +
                 CourseEntry.COLUMN_KEY + " TEXT NOT NULL, " +
 
-                CourseEntry.COLUMN_VIDEO+ " TEXT NOT NULL " +
+                CourseEntry.COLUMN_VIDEO+ " TEXT NOT NULL, " +" UNIQUE ("+CourseEntry.COLUMN_KEY+") ON CONFLICT REPLACE"+  " );";
 
 
 
 
-                // Set up the location column as a foreign key to location table.
 
-                // To assure the application have just one weather entry per day
-                // per location, it's created a UNIQUE constraint with REPLACE strategy
 
-                " );";
+
 
 
         sqLiteDatabase.execSQL(SQL_CREATE_COURSE_TABLE);

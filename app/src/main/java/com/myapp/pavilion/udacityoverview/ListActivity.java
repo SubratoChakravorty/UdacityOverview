@@ -1,6 +1,8 @@
 package com.myapp.pavilion.udacityoverview;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -11,11 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class ListActivity extends ActionBarActivity {
@@ -64,7 +63,7 @@ public class ListActivity extends ActionBarActivity {
         }
 
         private UdacityAdapter mUdacitytAdapter;
-
+public static final String KEY_COURSE="key";
 
         @Override
         public void onStart() {
@@ -86,11 +85,8 @@ public class ListActivity extends ActionBarActivity {
                     "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
                     "Sun 6/29 - Sunny - 20/7"
             };
-            List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
-            // Now that we have some dummy forecast data, create an ArrayAdapter.
-            // The ArrayAdapter will take data from a source (like our dummy forecast) and
-            // use it to populate the ListView it's attached to.
+
             Cursor cur=getActivity().getContentResolver().query(UdacityContract.CourseEntry.CONTENT_URI,null,null,null,null);
 
             View rootView = inflater.inflate(R.layout.fragment_list, container, false);
@@ -98,7 +94,29 @@ public class ListActivity extends ActionBarActivity {
             // Get a reference to the ListView, and attach this adapter to it.
             ListView listView = (ListView) rootView.findViewById(R.id.listview_courses);
             listView.setAdapter(mUdacitytAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+                @Override
+                public void onItemClick(AdapterView adapterView, View view,
+                                        int position, long l) {
+                    // CursorAdapter returns a cursor at the correct position for
+                    // getItem(), or null
+                    // if it cannot seek to that position.
+                    Cursor cursor = (Cursor) adapterView
+                            .getItemAtPosition(position);
+                    if (cursor != null) {
+                        int id_key=cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_KEY);
+                        String KEY=cursor.getString(id_key);
+
+                        Uri uri= UdacityContract.CourseEntry.buildCourseKeyUri(KEY);
+                      //  Toast.makeText(getActivity(),uri.getLastPathSegment(),Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(getActivity(),DetailActivity.class).setData(uri);
+
+                        startActivity(intent);
+
+                    }
+                }
+            });
 
 
             return rootView;

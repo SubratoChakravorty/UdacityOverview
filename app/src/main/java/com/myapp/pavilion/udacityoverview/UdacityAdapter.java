@@ -27,7 +27,7 @@ public class UdacityAdapter extends CursorAdapter{
          */
         private String convertCursorRowToUXFormat(Cursor cursor) {
             // get row indices for our cursor
-            int id_title = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_TITLE);
+            int id_title = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_KEY);
 
             String highAndLow = cursor.getString(id_title);
 
