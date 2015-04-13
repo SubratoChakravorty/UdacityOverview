@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 /**
@@ -49,18 +51,11 @@ public class CourseFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String[] data = {
-                "Mon 6/23 - Sunny - 31/17",
-                "Tue 6/24 - Foggy - 21/8",
-                "Wed 6/25 - Cloudy - 22/17",
-                "Thurs 6/26 - Rainy - 18/11",
-                "Fri 6/27 - Foggy - 21/10",
-                "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-                "Sun 6/29 - Sunny - 20/7"
-        };
 
 
-        Cursor cur=getActivity().getContentResolver().query(UdacityContract.CourseEntry.CONTENT_URI,null,null,null,null);
+
+
+
 
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         mUdacitytAdapter = new UdacityAdapter(getActivity(), null, 0);
@@ -90,7 +85,6 @@ public class CourseFragment extends Fragment implements LoaderManager.LoaderCall
                 }
             }
         });
-
 
         return rootView;
     }

@@ -1,9 +1,11 @@
 package com.myapp.pavilion.udacityoverview;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 
 public class ListActivity extends ActionBarActivity {
@@ -13,12 +15,32 @@ public class ListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new CourseFragment())
-                    .commit();
-        }
+        final ImageView imageView=(ImageView)findViewById(R.id.imageView);
+
+
+        final int []imageArray={R.drawable.udacity,R.drawable.second};
+
+
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            int i=0;
+            public void run() {
+                imageView.setImageResource(imageArray[i]);
+                i++;
+                if(i>imageArray.length-1)
+                {
+                    i=0;
+                }
+                handler.postDelayed(this,2000);  //for interval...
+            }
+        };
+        handler.postDelayed(runnable, 2000); //for initial delay..
+
+
+
+
     }
+
 
 
     @Override

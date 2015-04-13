@@ -12,11 +12,28 @@ import android.widget.TextView;
  * Created by Pavilion on 12-04-2015.
  */
 public class UdacityAdapter extends CursorAdapter{
-
+private static int i;
         public UdacityAdapter(Context context, Cursor c, int flags) {
             super(context, c, flags);
         }
+    public static class ViewHolder {
 
+        public final TextView titleView;
+        public final TextView levelView;
+        public final TextView tvCount;
+
+
+
+        public ViewHolder(View view) {
+
+            titleView = (TextView) view.findViewById(R.id.list_item_title);
+           levelView = (TextView) view.findViewById(R.id.list_item_level);
+            tvCount=(TextView)view.findViewById(R.id.tvcount);
+
+
+        }
+
+}
         /**
          * Prepare the weather high/lows for presentation.
          */
@@ -41,7 +58,9 @@ public class UdacityAdapter extends CursorAdapter{
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             View view = LayoutInflater.from(context).inflate(R.layout.list_item_courses, parent, false);
-
+            ViewHolder viewHolder=new ViewHolder(view);
+            view.setTag(viewHolder);
+i=1;
             return view;
         }
 
@@ -52,9 +71,16 @@ public class UdacityAdapter extends CursorAdapter{
         public void bindView(View view, Context context, Cursor cursor) {
             // our view is pretty simple here --- just a text view
             // we'll keep the UI functional with a simple (and slow!) binding.
+            ViewHolder viewHolder=(ViewHolder)view.getTag();
+            int id_title=cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_TITLE);
+            int id_key = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_KEY);
 
-            TextView tv = (TextView)view;
-            tv.setText(convertCursorRowToUXFormat(cursor));
+i++;
+            viewHolder.titleView.setText(cursor.getString(id_title));
+            viewHolder.levelView.setText(cursor.getString(id_key));
+
+
+
         }
     }
 

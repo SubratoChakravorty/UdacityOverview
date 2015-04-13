@@ -1,4 +1,33 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="com.myapp.pavilion.udacityoverview.ListActivity" tools:ignore="MergeRootFrame" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="vertical"
+    tools:context="com.example.android.sunshine.app.ListActivity">
+
+    <!--
+    This layout is a two-pane layout for the Sunshine master/detail flow.
+    --> <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+
+    android:id="@+id/imageView"
+
+    android:adjustViewBounds="true"
+
+
+    />
+    <fragment
+        android:id="@+id/course_fragment"
+        android:name="com.myapp.pavilion.udacityoverview.CourseFragment"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="2"
+        tools:layout="@android:layout/list_content" />
+
+
+
+</LinearLayout>
