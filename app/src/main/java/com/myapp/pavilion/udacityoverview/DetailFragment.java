@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by Pavilion on 12-04-2015.
@@ -29,6 +28,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     TextView tv_summary;
     TextView tv_youtube;
     TextView tv_you;
+    TextView tv_homeurl;
     Uri muri;
 
     public DetailFragment() {
@@ -44,6 +44,8 @@ tv_you=(TextView)rootView.findViewById(R.id.tv_youtube);
         tv_level=(TextView)rootView.findViewById(R.id.tv_level);
         tv_summary=(TextView)rootView.findViewById(R.id.tv_summary);
         tv_youtube=(TextView)rootView.findViewById(R.id.tv_youtube_url);
+        tv_homeurl=(TextView)rootView.findViewById(R.id.tv_homepage_url);
+
 
         Intent i=getActivity().getIntent();
         if(i==null)
@@ -83,9 +85,9 @@ tv_you=(TextView)rootView.findViewById(R.id.tv_youtube);
         int id_summary= cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_SHORT_SUMMARY);
         int id_youtube = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_VIDEO);
         int id_level = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_LEVEL);
+int id_home=cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_HOMEPAGE);
 
-
-        Log.e("id_title",id_title+"");
+        Log.e("id_homepage",id_home+"");
         Log.e("column_count",cursor.getColumnCount()+"");
         // try {
         cursor.moveToFirst();
@@ -94,25 +96,39 @@ tv_you=(TextView)rootView.findViewById(R.id.tv_youtube);
         String key=cursor.getString(id_key);
         String summary=cursor.getString(id_summary);
         final String y=cursor.getString(id_youtube);
+        String home_url=cursor.getString(id_home);
         tv_title.setTextSize(20);
-        Toast.makeText(getActivity(),y,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),y,Toast.LENGTH_LONG).show();
         Log.e("title", highAndLow);
         tv_title.setText(highAndLow);
+        tv_homeurl.setText(home_url);
         tv_youtube.setTextColor(Color.RED);
-        tv_youtube.setText(y);
+       if(y.contentEquals("")) {
+
+           tv_youtube.setText("Not Available");
+
+       }
+        else
+       {
+           tv_youtube.setText(y);
+
+       }
         tv_summary.setText(summary);
         tv_level.setText(level);
         tv_key.setText(key);
         tv_you.setTextColor(Color.GREEN);
         tv_you.setText("YOUTUBE TEASER");
-        tv_youtube.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(y)); // Starts Implicit Activity
-                startActivity(i);
+        if(!y.contentEquals(""))
+        {
+            tv_youtube.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(y)); // Starts Implicit Activity
+                    startActivity(i);
 
-            }
-        });
+                }
+            });
+        }
 
 
     }

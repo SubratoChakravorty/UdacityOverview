@@ -46,14 +46,14 @@ public FetchCourseTask(Context c)
         final String KEY = "key";
         final String SUMMARY = "short_summary";
 
-
+final String HOMEPAGE="homepage";
         final String VIDEO = "teaser_video";
         final String VIDEO_URL = "youtube_url";
         final String LEVEL = "level";
 
 
 
-        final String TRACKS = "tracks";
+
         final String COURSES = "courses";
 
 
@@ -68,6 +68,7 @@ public FetchCourseTask(Context c)
                 String title = obj.getString(TITLE);
 
                 String key = obj.getString(KEY);
+                String home=obj.getString(HOMEPAGE);
                 String summary = obj.getString(SUMMARY);
                 String level = obj.getString(LEVEL);
                 JSONObject video_object = obj.getJSONObject(VIDEO);
@@ -78,6 +79,7 @@ public FetchCourseTask(Context c)
                 values.put(CourseEntry.COLUMN_SHORT_SUMMARY, summary);
                 values.put(CourseEntry.COLUMN_VIDEO, video_url);
                 values.put(CourseEntry.COLUMN_KEY,key);
+                values.put(CourseEntry.COLUMN_HOMEPAGE,home);
                 cVVector.add(values);
 
             }

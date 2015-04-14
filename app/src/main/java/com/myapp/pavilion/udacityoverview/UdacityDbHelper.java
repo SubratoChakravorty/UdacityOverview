@@ -12,7 +12,7 @@ import com.myapp.pavilion.udacityoverview.UdacityContract.CourseEntry;
 public class UdacityDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     static final String DATABASE_NAME = "udacity.db";
 
@@ -43,7 +43,8 @@ public class UdacityDbHelper extends SQLiteOpenHelper {
                 CourseEntry.COLUMN_SHORT_SUMMARY + " TEXT NOT NULL, " +
                 CourseEntry.COLUMN_KEY + " TEXT NOT NULL, " +
 
-                CourseEntry.COLUMN_VIDEO+ " TEXT NOT NULL, " +" UNIQUE ("+CourseEntry.COLUMN_KEY+") ON CONFLICT REPLACE"+  " );";
+                CourseEntry.COLUMN_VIDEO+ " TEXT NOT NULL, " +CourseEntry.COLUMN_KEY + " TEXT NOT NULL, "
+                +" UNIQUE ("+CourseEntry.COLUMN_KEY+") ON CONFLICT REPLACE"+  " );";
 
 
 

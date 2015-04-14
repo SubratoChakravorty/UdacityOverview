@@ -20,7 +20,7 @@ private static int i;
 
         public final TextView titleView;
         public final TextView levelView;
-        public final TextView tvCount;
+
 
 
 
@@ -28,7 +28,7 @@ private static int i;
 
             titleView = (TextView) view.findViewById(R.id.list_item_title);
            levelView = (TextView) view.findViewById(R.id.list_item_level);
-            tvCount=(TextView)view.findViewById(R.id.tvcount);
+
 
 
         }
@@ -73,11 +73,11 @@ i=1;
             // we'll keep the UI functional with a simple (and slow!) binding.
             ViewHolder viewHolder=(ViewHolder)view.getTag();
             int id_title=cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_TITLE);
-            int id_key = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_KEY);
+            int id_level = cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_LEVEL);
 
-i++;
+//i++;
             viewHolder.titleView.setText(cursor.getString(id_title));
-            viewHolder.levelView.setText(cursor.getString(id_key));
+            viewHolder.levelView.setText(cursor.getString(id_level));
 
 
 

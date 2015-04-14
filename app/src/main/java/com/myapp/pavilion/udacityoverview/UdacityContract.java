@@ -48,7 +48,7 @@ public class UdacityContract {
 
 
         // Short description and long description of the weather, as provided by API.
-        // e.g "clear" vs "sky is clear".
+        public static final String COLUMN_HOMEPAGE="homepage";
         public static final String COLUMN_LEVEL = "level";
 
         // Min and max temperatures for the day (stored as floats)

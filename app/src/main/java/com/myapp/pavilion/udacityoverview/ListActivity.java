@@ -18,7 +18,7 @@ public class ListActivity extends ActionBarActivity {
         final ImageView imageView=(ImageView)findViewById(R.id.imageView);
 
 
-        final int []imageArray={R.drawable.udacity,R.drawable.second};
+        final int []imageArray={R.drawable.udacity,R.drawable.udacity1,R.drawable.udacity2,R.drawable.udacity3};
 
 
         final Handler handler = new Handler();

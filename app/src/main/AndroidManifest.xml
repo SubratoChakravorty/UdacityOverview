@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -15,7 +15,7 @@
         </activity>
         <activity
             android:name=".ListActivity"
-            android:label="@string/title_activity_list" >
+            android:label="UdaCity OverView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
 
         <activity
             android:name=".DetailActivity"
-            android:label="@string/title_activity_detail"
+            android:label="CoUrSe DeTaIls"
             android:parentActivityName=".ListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
