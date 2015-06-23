@@ -43,7 +43,7 @@ public class UdacityDbHelper extends SQLiteOpenHelper {
                 CourseEntry.COLUMN_SHORT_SUMMARY + " TEXT NOT NULL, " +
                 CourseEntry.COLUMN_KEY + " TEXT NOT NULL, " +
 
-                CourseEntry.COLUMN_VIDEO+ " TEXT NOT NULL, " +CourseEntry.COLUMN_KEY + " TEXT NOT NULL, "
+                CourseEntry.COLUMN_VIDEO+ " TEXT NOT NULL, " +CourseEntry.COLUMN_HOMEPAGE + " TEXT NOT NULL, "
                 +" UNIQUE ("+CourseEntry.COLUMN_KEY+") ON CONFLICT REPLACE"+  " );";
 
 

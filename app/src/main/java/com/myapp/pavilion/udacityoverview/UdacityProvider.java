@@ -83,13 +83,11 @@ public class UdacityProvider extends ContentProvider{
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        // Here's the switch statement that, given a URI, will determine what
-        // kind of request it is,
-        // and query the database accordingly.
+
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
 
-            // "weather"
+
             case COURSES: {
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         UdacityContract.CourseEntry.TABLE_NAME, projection,
@@ -189,7 +187,7 @@ String key= UdacityContract.getKeyFromUri(uri);
         return rowsDeleted;
 
 
-        // Student: A null value deletes all rows. In my implementation of this,
+
         // I only notified
         // the uri listeners (using the content resolver) if the rowsDeleted !=
         // 0 or the selection

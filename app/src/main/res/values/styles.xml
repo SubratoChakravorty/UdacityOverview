@@ -6,6 +6,10 @@
 
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
          <item name="colorPrimary">@color/udacity_blue</item>
-                <item name="colorPrimaryDark">@color/sunshine_dark_blue</item>
+             
+    </style>
+    <style name="DetailTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/udacity_blue</item>
+
     </style>
 </resources>

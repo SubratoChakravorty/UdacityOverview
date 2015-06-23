@@ -1,41 +1,67 @@
 package com.myapp.pavilion.udacityoverview;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 
-public class ListActivity extends ActionBarActivity {
-
+public class ListActivity extends ActionBarActivity implements CourseFragment.Callback{
+    private boolean mTwoPane;
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        final ImageView imageView=(ImageView)findViewById(R.id.imageView);
+       // final ImageView imageView=(ImageView)findViewById(R.id.imageView);
+        if (findViewById(R.id.udacity_detail_container) != null) {
+            // The detail container view will be present only in the large-screen layouts
+            // (res/layout-sw600dp). If this view is present, then the activity should be
+            // in two-pane mode.
+            mTwoPane = true;
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
 
-
-        final int []imageArray={R.drawable.udacity,R.drawable.udacity1,R.drawable.udacity2,R.drawable.udacity3};
-
-
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int i=0;
-            public void run() {
-                imageView.setImageResource(imageArray[i]);
-                i++;
-                if(i>imageArray.length-1)
-                {
-                    i=0;
-                }
-                handler.postDelayed(this,2000);  //for interval...
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.udacity_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                        .commit();
             }
-        };
-        handler.postDelayed(runnable, 2000); //for initial delay..
+        } else {
+            mTwoPane = false;
+            final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+            ImageAdapter adapter = new ImageAdapter(this);
+            viewPager.setAdapter(adapter);
 
+
+
+
+
+
+            final Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                int i=0;
+                public void run() {
+                    viewPager.setCurrentItem(i);
+                    i++;
+                    if(i>2)
+                    {
+                        i=0;
+                    }
+                    handler.postDelayed(this,2000);  //for interval...
+                }
+            };
+            handler.postDelayed(runnable, 2000); //for initial delay..*/
+
+
+        }
 
 
 
@@ -65,92 +91,27 @@ public class ListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
- /*   public static class CourseFragment extends Fragment {
+    @Override
+    public void onItemSelected(Uri contentUri){
+        // TODO Auto-generated method stub
+        if (mTwoPane) {
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            Bundle args = new Bundle();
+            args.putParcelable(DetailFragment.DETAIL_URI, contentUri);
 
-        public CourseFragment() {
-            setHasOptionsMenu(true);
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.udacity_detail_container, fragment, DETAILFRAGMENT_TAG)
+                    .commit();
+        } else {
+           // Toast.makeText(this,"list activity"+contentUri.toString(),Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, DetailActivity.class)
+                    .setData(contentUri);
+            startActivity(intent);
         }
-
-        private UdacityAdapter mUdacitytAdapter;
-public static final String KEY_COURSE="key";
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            Log.e("onStart","fetchCoursetask");
-            FetchCourseTask f=new FetchCourseTask(getActivity());
-            f.execute();
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            String[] data = {
-                    "Mon 6/23 - Sunny - 31/17",
-                    "Tue 6/24 - Foggy - 21/8",
-                    "Wed 6/25 - Cloudy - 22/17",
-                    "Thurs 6/26 - Rainy - 18/11",
-                    "Fri 6/27 - Foggy - 21/10",
-                    "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-                    "Sun 6/29 - Sunny - 20/7"
-            };
-
-
-            Cursor cur=getActivity().getContentResolver().query(UdacityContract.CourseEntry.CONTENT_URI,null,null,null,null);
-
-            View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-            mUdacitytAdapter = new UdacityAdapter(getActivity(), cur, 0);
-            // Get a reference to the ListView, and attach this adapter to it.
-            ListView listView = (ListView) rootView.findViewById(R.id.listview_courses);
-            listView.setAdapter(mUdacitytAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView adapterView, View view,
-                                        int position, long l) {
-                    // CursorAdapter returns a cursor at the correct position for
-                    // getItem(), or null
-                    // if it cannot seek to that position.
-                    Cursor cursor = (Cursor) adapterView
-                            .getItemAtPosition(position);
-                    if (cursor != null) {
-                        int id_key=cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_KEY);
-                        String KEY=cursor.getString(id_key);
-
-                        Uri uri= UdacityContract.CourseEntry.buildCourseKeyUri(KEY);
-                      //  Toast.makeText(getActivity(),uri.getLastPathSegment(),Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getActivity(),DetailActivity.class).setData(uri);
-
-                        startActivity(intent);
-
-                    }
-                }
-            });
-
-
-            return rootView;
-        }
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            inflater.inflate(R.menu.fragment_list, menu);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-            if (id == R.id.action_refresh) {
-                FetchCourseTask f=new FetchCourseTask(getActivity());
-                f.execute();
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
-    }*/
+    }
 }

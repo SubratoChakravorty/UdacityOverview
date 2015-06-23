@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.myapp.pavilion.udacityoverview.UdacityContract.CourseEntry;
 
@@ -27,14 +28,26 @@ public class FetchCourseTask extends AsyncTask<Void,Void,Void> {
     private static final String LOG_TAG =FetchCourseTask.class.getSimpleName() ;
     Context mcontext;
 
+int x=0;
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        if(x==1)
+        {
 
-public FetchCourseTask(Context c)
+
+        Toast.makeText(mcontext,"Data Refreshed",Toast.LENGTH_SHORT).show();
+    }
+    }
+
+
+    public FetchCourseTask(Context c)
 {
     mcontext=c;
 
 }
 
-    private void getCourseDataFromJson(String course)throws JSONException {
+      private void getCourseDataFromJson(String course)throws JSONException {
 
 
         // Now we have a String representing the complete data in JSON Format.
@@ -46,7 +59,7 @@ public FetchCourseTask(Context c)
         final String KEY = "key";
         final String SUMMARY = "short_summary";
 
-final String HOMEPAGE="homepage";
+        final String HOMEPAGE="homepage";
         final String VIDEO = "teaser_video";
         final String VIDEO_URL = "youtube_url";
         final String LEVEL = "level";
@@ -92,6 +105,8 @@ final String HOMEPAGE="homepage";
             }
 
             Log.d(LOG_TAG, "FetchCourseTask Complete. " + inserted + " Inserted");
+            x=0;
+            x++;
 
 
 
@@ -106,7 +121,7 @@ final String HOMEPAGE="homepage";
 
     }
 
-            // New data is back from the server.  Hooray!
+    // New data is back from the server.  Hooray!
 
 
 
@@ -118,7 +133,7 @@ final String HOMEPAGE="homepage";
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
-       HttpURLConnection urlConnection = null;
+        HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
         // Will contain the raw JSON response as a string.

@@ -8,5 +8,12 @@
         app:showAsAction="always"
         android:title="@string/action_refresh"
         android:visible="true"/>
+    <item android:id="@+id/check_all"
+        android:icon="@drawable/star"
+        android:title="star"
+        android:checkable="true"
+        android:checked="true"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
 
 </menu>

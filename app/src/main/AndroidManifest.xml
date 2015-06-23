@@ -30,12 +30,15 @@
 
         <activity
             android:name=".DetailActivity"
-            android:label="CoUrSe DeTaIls"
+            android:label="CourSe Details"
+            android:theme="@style/DetailTheme"
+
             android:parentActivityName=".ListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myapp.pavilion.udacityoverview.ListActivity" />
         </activity>
+        <service android:name=".Service.UdacityService"></service>
     </application>
 
 </manifest>
