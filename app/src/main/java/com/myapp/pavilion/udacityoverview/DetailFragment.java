@@ -185,7 +185,7 @@ int id_home=cursor.getColumnIndex(UdacityContract.CourseEntry.COLUMN_HOMEPAGE);
                 }
             });
         }
-        else
+
 
         tv_homeurl.setOnClickListener(new View.OnClickListener() {
             @Override
